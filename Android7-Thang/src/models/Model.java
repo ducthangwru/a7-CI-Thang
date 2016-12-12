@@ -52,4 +52,12 @@ public class Model {
         x += dx;
         y += dy;
     }
+
+    public int getMidX() {
+        return this.x + width / 2;
+    }
+
+    public int getMidY() {
+        return this.y + height;
+    }
 }

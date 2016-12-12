@@ -32,6 +32,7 @@ public class GameWindow extends Frame implements Runnable {
         enemyController = PlaneEnemyController.createEnemyController(new Random().nextInt(700), 0);
 
         setVisible(true);
+        setResizable(false);
         setSize(800, 600);
         backBuffer = new BufferedImage(800, 600, BufferedImage.TYPE_3BYTE_BGR);
         background = loadImage("resources/background.png");
@@ -123,15 +124,19 @@ public class GameWindow extends Frame implements Runnable {
                 for (int i = 0; i < bulletEnemyControllerVector.size(); i++) {
                     bulletEnemyControllerVector.get(i).run();
                 }
-                if (millis % 400 == 0) {
-                    enemyController.run();
-                }
 
-                if (millis % 600 == 0) {
+                enemyController.run();
+
+                if (millis % 1000 == 0) {
                     BulletEnemyController bulletEnemyController = BulletEnemyController.createBulletEnemyController(enemyController.getModel().getX() + 10, enemyController.getModel().getY() + 40);
                     bulletEnemyControllerVector.add(bulletEnemyController);
                 }
 
+                for (int i = 0; i < bulletEnemyControllerVector.size(); i++) {
+                    if(bulletEnemyControllerVector.get(i).getModel().getY() > 600) {
+                        bulletEnemyControllerVector.remove((bulletEnemyControllerVector.get(i)));
+                    }
+                }
 
                 for (int i = 0; i < bulletControllerVector.size(); i++) {
                     bulletControllerVector.get(i).run();

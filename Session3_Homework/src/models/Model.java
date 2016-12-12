@@ -48,6 +48,18 @@ public class Model {
         this.y = y;
     }
 
+    public int getMidX() {
+        return this.x + this.width / 2;
+    }
+
+    public int getMidY() {
+        return this.y + this.height / 2;
+    }
+
+    public int getBottom() {
+        return this.y + this.height;
+    }
+
     public void move(int dx, int dy) {
         x += dx;
         y += dy;

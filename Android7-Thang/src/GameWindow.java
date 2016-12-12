@@ -1,12 +1,19 @@
 import controllers.BulletController;
+import controllers.EnemyController;
 import controllers.KeySetting;
 import controllers.PlaneController;
+import controllers.managers.EnemyControllerManager;
+import models.Model;
+import utils.Utils;
+import views.View;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import java.util.Vector;
 
 import static controllers.PlaneController.createPlane;
@@ -20,12 +27,13 @@ public class GameWindow extends Frame implements Runnable{
     PlaneController planeController;
     Vector<BulletController> bulletControllerVector;
     BufferedImage backBuffer;
+    EnemyControllerManager enemyControllerManager;
 
     public GameWindow() {
         planeController = createPlane(300, 400);
         planeController.setKeySetting(new KeySetting(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT));
         bulletControllerVector = new Vector<>();
-
+        enemyControllerManager = new EnemyControllerManager();
         setVisible(true);
         setSize(800, 600);
         backBuffer = new BufferedImage(800, 600, BufferedImage.TYPE_3BYTE_BGR);
@@ -99,6 +107,7 @@ public class GameWindow extends Frame implements Runnable{
         for (BulletController bulletController : bulletControllerVector) {
             bulletController.draw(backBufferGraphics);
         }
+        enemyControllerManager.draw(backBufferGraphics);
         g.drawImage(backBuffer, 0, 0, 800, 600, null);
     }
 
@@ -108,6 +117,7 @@ public class GameWindow extends Frame implements Runnable{
             this.repaint();
             try {
                 Thread.sleep(17);
+                enemyControllerManager.run();
                 for (int i = 0; i < bulletControllerVector.size(); i++) {
                     bulletControllerVector.get(i).run();
                 }
