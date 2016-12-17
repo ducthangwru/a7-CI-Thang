@@ -1,6 +1,7 @@
 import controllers.BulletController;
 import controllers.KeySetting;
 import controllers.PlaneController;
+import controllers.managers.BodyManager;
 import controllers.managers.EnemyControllerManager;
 
 import java.awt.*;
@@ -113,6 +114,7 @@ public class GameWindow extends Frame implements Runnable{
             try {
                 Thread.sleep(17);
                 enemyControllerManager.run();
+                BodyManager.instance.checkContact();
                 for (int i = 0; i < bulletControllerVector.size(); i++) {
                     bulletControllerVector.get(i).run();
                 }

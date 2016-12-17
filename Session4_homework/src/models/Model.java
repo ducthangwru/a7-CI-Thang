@@ -1,5 +1,7 @@
 package models;
 
+import java.awt.*;
+
 /**
  * Created by DUC THANG on 12/11/2016.
  */
@@ -9,6 +11,7 @@ public class Model {
     private int width;
     private int height;
     private int timeCounter;
+    private boolean isAlive = true;
 
     public Model(int x, int y, int width, int height) {
         this.x = x;
@@ -16,6 +19,14 @@ public class Model {
         this.width = width;
         this.height = height;
         timeCounter = 0;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 
     public int getWidth() {
@@ -70,5 +81,14 @@ public class Model {
 
     public void setTimeCounter(int timeCounter) {
         this.timeCounter = timeCounter;
+    }
+    public Rectangle getRect() {
+        return new Rectangle(x, y, width, height);
+    }
+
+    public boolean intersects(Model other) {
+        Rectangle rect1 = this.getRect();
+        Rectangle rect2 = other.getRect();
+        return rect1.intersects(rect2);
     }
 }
