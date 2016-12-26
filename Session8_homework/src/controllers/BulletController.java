@@ -3,7 +3,7 @@ package controllers;
 import controllers.enemies.EnemyController;
 import controllers.managers.BodyManager;
 import models.Model;
-import views.SingerView;
+import views.SingleView;
 import views.View;
 
 import static utils.Utils.loadImage;
@@ -13,8 +13,8 @@ import static utils.Utils.loadImage;
  */
 public class BulletController extends Controller implements Body {
 
-    public static final int WIDTH = 10;
-    public static final int HEIGHT= 30;
+    public static final int WIDTH = 13;
+    public static final int HEIGHT = 33;
 
     public BulletController(Model model, View view) {
         super(model, view);
@@ -26,12 +26,12 @@ public class BulletController extends Controller implements Body {
     }
 
     public static BulletController createBulletController(int x, int y) {
-        return new BulletController(new Model(x, y, 13, 33), new SingerView(loadImage("resources/bullet.png")));
+        return new BulletController(new Model(x, y, WIDTH, HEIGHT), new SingleView(loadImage("resources/bullet.png")));
     }
 
     @Override
     public void onContact(Body other) {
-        if(other instanceof EnemyController) {
+        if (other instanceof EnemyController) {
             System.out.println("trúng máy bay");
             this.getModel().setAlive(false);
             ((EnemyController) other).destroy();

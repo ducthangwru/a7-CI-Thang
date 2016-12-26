@@ -9,15 +9,11 @@ import controllers.managers.ControllerManager;
 import models.Model;
 import utils.Utils;
 import views.Animation;
-import views.SingerView;
+import views.SingleView;
 import views.View;
 
-import javax.rmi.CORBA.Util;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
-
-import static utils.Utils.loadImage;
 
 /**
  * Created by DUC THANG on 12/16/2016.
@@ -54,7 +50,7 @@ public class EnemyController extends Controller implements Body {
         }
 
         timeCounter++;
-        if(timeCounter > 30) {
+        if(timeCounter > 70) {
             shoot();
             timeCounter = 0;
         }
@@ -69,9 +65,9 @@ public class EnemyController extends Controller implements Body {
     public static EnemyController create(int x, int y, EnemyType enemyType) {
         switch (enemyType) {
             case BROWN:
-                return new EnemyController(new Model(x, y, WIDTH, HEIGHT), new SingerView(Utils.loadImage("resources/plane1.png")), new MoveStraightDownBehavior(), new ShootDownBehavior());
+                return new EnemyController(new Model(x, y, WIDTH, HEIGHT), new SingleView(Utils.loadImage("resources/plane1.png")), new MoveStraightDownBehavior(), new ShootDownBehavior());
             case GREEN:
-                return new EnemyController(new Model(x, y, WIDTH, HEIGHT), new SingerView(Utils.loadImage("resources/enemy-green-3.png")), new MoveLeftRightBehavior(), new ShootLeftRightBehavior());
+                return new EnemyController(new Model(x, y, WIDTH, HEIGHT), new SingleView(Utils.loadImage("resources/enemy-green-3.png")), new MoveLeftRightBehavior(), new ShootLeftRightBehavior());
             case WHITE:
                 Vector <BufferedImage> images = new Vector<>();
                 images.add(Utils.loadImage("resources/enemy_plane_white_1.png"));
@@ -101,5 +97,6 @@ public class EnemyController extends Controller implements Body {
                 new Animation(Utils.loadSheet("resources/explosion.png", 32, 32, 1, 6))
         );
         ControllerManager.explosion.add(explosionController);
+        Utils.playSound("resources/explosion10.wav", false);
     }
 }

@@ -20,6 +20,10 @@ public class ControllerManager implements BaseController{
         controllers = new Vector<>();
     }
 
+    public Vector<Controller> getControllers() {
+        return controllers;
+    }
+
     public void draw(Graphics g) {
         for (Controller controller : controllers) {
             controller.draw(g);
@@ -46,7 +50,7 @@ public class ControllerManager implements BaseController{
 
     public void remove() {
         for (int i = 0; i < controllers.size(); i++) {
-            if(controllers.get(i).getModel().getY() > 600) {
+            if(controllers.get(i).getModel().getY() > GameSetting.instance.getHeight() || !controllers.get(i).getModel().isAlive()) {
                 controllers.remove(controllers.get(i));
             }
         }

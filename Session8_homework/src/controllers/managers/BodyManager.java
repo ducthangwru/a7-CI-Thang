@@ -1,7 +1,6 @@
 package controllers.managers;
 
-import controllers.BaseController;
-import controllers.Body;
+import controllers.*;
 import models.Model;
 
 import java.awt.*;
@@ -28,7 +27,7 @@ public class BodyManager implements BaseController{
         Iterator <Body> iterator = bodyVector.iterator();
         while(iterator.hasNext()) {
             Body body = iterator.next();
-            if(!body.getModel().isAlive()) {
+            if(!body.getModel().isAlive() || body.getModel().getY() > GameSetting.instance.getHeight()) {
                 iterator.remove();
             }
         }
@@ -51,5 +50,9 @@ public class BodyManager implements BaseController{
     @Override
     public void draw(Graphics g) {
 
+    }
+
+    public Vector<Body> getBodyVector() {
+        return bodyVector;
     }
 }

@@ -2,8 +2,6 @@ package controllers.managers;
 
 import controllers.enemies.EnemyController;
 import controllers.enemies.EnemyType;
-import controllers.enemies.MoveLeftRightBehavior;
-import controllers.enemies.MoveStraightDownBehavior;
 import utils.Utils;
 
 import java.util.Random;
@@ -12,16 +10,24 @@ import java.util.Random;
  * Created by DUC THANG on 12/16/2016.
  */
 public class EnemyControllerManager extends ControllerManager {
+    private int timeCount = 0;
 
     private void spawn() {
-        if(Utils.getTimeCounter() > 100) {
+        timeCount++;
+        if (timeCount == 100) {
             EnemyController enemyController = EnemyController.create(new Random().nextInt(800), 0, EnemyType.BROWN);
             add(enemyController);
+        }
+
+        if (timeCount == 200) {
             EnemyController enemyController1 = EnemyController.create(new Random().nextInt(800), 0, EnemyType.GREEN);
             add(enemyController1);
+        }
+
+        if (timeCount == 300) {
             EnemyController enemyController2 = EnemyController.create(new Random().nextInt(800), 0, EnemyType.WHITE);
             add(enemyController2);
-            Utils.setTimeCounter(0);
+            timeCount = 0;
         }
     }
 
@@ -35,4 +41,5 @@ public class EnemyControllerManager extends ControllerManager {
         spawn();
         remove();
     }
+
 }

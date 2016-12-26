@@ -7,10 +7,10 @@ import java.awt.*;
 /**
  * Created by DUC THANG on 12/24/2016.
  */
-public class SingerView implements View {
+public class SingleView implements View {
     private Image image;
 
-    public SingerView(Image image) {
+    public SingleView(Image image) {
         this.image = image;
     }
 

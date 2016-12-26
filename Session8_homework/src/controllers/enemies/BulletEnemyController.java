@@ -4,10 +4,8 @@ import controllers.*;
 import controllers.managers.BodyManager;
 import models.Model;
 import utils.Utils;
-import views.SingerView;
+import views.SingleView;
 import views.View;
-
-import java.awt.image.BufferedImage;
 
 /**
  * Created by DUC THANG on 12/16/2016.
@@ -34,11 +32,11 @@ public class BulletEnemyController extends Controller implements Body {
     }
 
     public static BulletEnemyController create(int x, int y) {
-        return new BulletEnemyController(new Model(x, y, WIDTH, HEIGHT), new SingerView(Utils.loadImage("resources/bullet-round.png")));
+        return new BulletEnemyController(new Model(x, y, WIDTH, HEIGHT), new SingleView(Utils.loadImage("resources/bullet-round.png")));
     }
 
     public static BulletEnemyController create(int x, int y, GameVector gameVector) {
-        return new BulletEnemyController(new Model(x, y, WIDTH, HEIGHT), new SingerView(Utils.loadImage("resources/bullet-round.png")), gameVector);
+        return new BulletEnemyController(new Model(x, y, WIDTH, HEIGHT), new SingleView(Utils.loadImage("resources/bullet-round.png")), gameVector);
     }
 
     @Override

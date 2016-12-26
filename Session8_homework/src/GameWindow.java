@@ -1,5 +1,6 @@
 import controllers.*;
 import controllers.managers.BodyManager;
+import controllers.managers.BombManager;
 import controllers.managers.ControllerManager;
 import controllers.managers.EnemyControllerManager;
 import utils.Utils;
@@ -10,10 +11,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
-import java.security.Key;
+import java.util.Scanner;
 import java.util.Vector;
 
-import static controllers.PlaneController.createPlane;
 import static utils.Utils.loadImage;
 
 /**
@@ -35,6 +35,7 @@ public class GameWindow extends Frame implements Runnable{
         controllers.add(PlaneController.instance);
         controllers.add(BodyManager.instance);
         controllers.add(ControllerManager.enemyBullet);
+        controllers.add(new BombManager());
 
         setVisible(true);
         setSize(gameSetting.getWidth(), gameSetting.getHeight());
@@ -108,6 +109,17 @@ public class GameWindow extends Frame implements Runnable{
 
         for(BaseController baseController : this.controllers) {
             baseController.draw(backBufferGraphics);
+        }
+
+        if(PlaneController.instance.getLives() < 0) {
+            backBufferGraphics.drawImage(loadImage("resources/gameover.png"), -100, 0, 1000, 563, null);
+            g.drawImage(backBuffer, 0, 0, gameSetting.getWidth(), gameSetting.getHeight(), null);
+            try {
+                Thread.sleep(5000);
+                System.exit(0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         g.drawImage(backBuffer, 0, 0, gameSetting.getWidth(), gameSetting.getHeight(), null);
     }
